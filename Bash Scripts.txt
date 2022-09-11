@@ -1,0 +1,18 @@
+#keep all the observations that are associated with certain conferences dated after 2015-one for each conference
+zcat authors.csv.gz | grep “,KDD,” | awk -F, ‘$1>2015 {print $0}’ > KDD_conf.csv
+zcat authors.csv.gz | grep “,CIKM,” | awk -F, ‘$1>2015 {print $0}’ > CIKM _conf.csv
+zcat authors.csv.gz | grep “,ICWSM,” | awk -F, ‘$1>2015 {print $0}’ > ICWSM _conf.csv
+zcat authors.csv.gz | grep “,WWW,” | awk -F, ‘$1>2015 {print $0}’ > WWW _conf.csv
+zcat authors.csv.gz | grep “,IEEE BigData,” | awk -F, ‘$1>2015 {print $0}’ > IEEE _conf.csv
+
+
+#Merge all csv files into one
+cat *.csv >> all_conf.csv 
+
+#keep one file per year from the merged csv file
+cat all_conf.csv | awk -F”,” ‘$1~/2016 / {print $0}’ >> all_auth_2016.csv
+cat all_conf.csv | awk -F”,” ‘$1~/2017/ {print $0}’ >> all_auth_2017.csv
+cat all_conf.csv | awk -F”,” ‘$1~/2018 / {print $0}’ >> all_auth_2018.csv
+cat all_conf.csv | awk -F”,” ‘$1~/2019 / {print $0}’ >> all_auth_2019.csv
+cat all_conf.csv | awk -F”,” ‘$1~/2020 / {print $0}’ >> all_auth_2020.csv
+
